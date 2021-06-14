@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.socket.io/4.0.1/socket.io.min.js" integrity="sha384-LzhRnpGmQP+lOvWruF/lgkcqD+WDVt9fU3H4BWmwP5u5LTmkUGafMcpZKNObVMLU" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="style/screen.css">
+  <script src="script/app.js"></script>
+  <script src="script/datahandler.js"></script>
+
+  <title>Auto-train</title>
+</head>
+
+<body>
+  <nav class="nav">
+    <div class="navWidth">
+      <h1 class="navH1">
+        Auto-Train
+      </h1>
+
+      <ul class="navUl">
+        <li class="navLi"><a class="NavLiA" href="index.html">Home</a></li>
+        <li class="navLi"><a class="NavLiA" href="history.html">Geschiedenis</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="main">
+    <div class="mainCardholder">
+      <div class="card wrap">
+        <div>
+          <svg width="440px" height="250px" id="svg" class="trainTrack">
+            <!-- BOVEN -->
+            <line id="T1" class="trackE" data-section="3" x1="120" y1="5" x2="160" y2="5"></line>
+            <line id="T2" class="trackO" data-section="2" x1="160" y1="5" x2="200" y2="5"></line>
+            <line id="T3" class="trackE" data-section="2" x1="200" y1="5" x2="240" y2="5"></line>
+            <line id="T4" class="trackO" data-section="1" x1="240" y1="5" x2="280" y2="5"></line>
+            <line id="T5" class="trackE" data-section="1" x1="280" y1="5" x2="320" y2="5"></line>
+
+            <!-- RECHTS -->
+            <line id="T6" class="trackO" data-section="13" x1="320" y1="0" x2="350" y2="30"></line>
+            <line id="T7" class="trackE" data-section="13" x1="350" y1="30" x2="380" y2="60"></line>
+            <line id="T8" class="trackO" data-section="12" x1="380" y1="60" x2="410" y2="90"></line>
+            <line id="T9" class="trackE" data-section="12" x1="410" y1="90" x2="440" y2="120"></line>
+
+            <line id="T10" class="trackO" data-section="11" x1="440" y1="120" x2="410" y2="150"></line>
+            <line id="T11" class="trackE" data-section="11" x1="410" y1="150" x2="380" y2="180"></line>
+            <line id="T12" class="trackO" data-section="10" x1="380" y1="180" x2="350" y2="210"></line>
+            <line id="T13" class="trackE" data-section="10" x1="350" y1="210" x2="320" y2="240"></line>
+
+            <!-- ONDER -->
+            <line id="T14" class="trackO" data-section="9" x1="320" y1="240" x2="280" y2="240"></line>
+            <line id="T15" class="trackE" data-section="9" x1="280" y1="240" x2="240" y2="240"></line>
+            <line id="T16" class="trackO" data-section="8" x1="240" y1="240" x2="200" y2="240"></line>
+            <line id="T17" class="trackE" data-section="8" x1="200" y1="240" x2="160" y2="240"></line>
+            <line id="T18" class="trackO" data-section="7" x1="160" y1="240" x2="120" y2="240"></line>
+
+            <!-- LINKS -->
+            <line id="T19" class="trackE" data-section="7" x1="120" y1="240" x2="90" y2="210"></line>
+            <line id="T20" class="trackO" data-section="6" x1="90" y1="210" x2="60" y2="180"></line>
+            <line id="T21" class="trackE" data-section="6" x1="60" y1="180" x2="30" y2="150"></line>
+            <line id="T22" class="trackO" data-section="5" x1="30" y1="150" x2="0" y2="120"></line>
+
+            <line id="T23" class="trackE" data-section="5" x1="0" y1="120" x2="30" y2="90"></line>
+            <line id="T24" class="trackO" data-section="4" x1="30" y1="90" x2="60" y2="60"></line>
+            <line id="T25" class="trackE" data-section="4" x1="60" y1="60" x2="90" y2="30"></line>
+            <line id="T26" class="trackO" data-section="3" x1="90" y1="30" x2="120" y2="0"></line>
+          </svg>
+        </div>
+        <br>
+        <button class="controlsBtn js-sensor">Sensoren kalibreren</button>
+      </div>
+
+      <div class="card">
+        <div class="speed">
+          <div class="box gauge--3">
+            <div class="mask">
+              <div class="semi-circle"></div>
+              <div class="semi-circle--mask"></div>
+            </div>
+          </div>
+          <h1 class="speedPercentage">0.00A</h1>
+        </div>
+        <div class="stop">
+          <h1 class="stopText unselectable">stop</h1>
+        </div>
+      </div>
+
+      <div class="card">
+        <table class="constrolsTable">
+          <tr class="constrolsTr">
+            <td class="controlsTdTitle">
+              Voorlichten:
+            </td>
+            <td class="controlsTdValue">
+              <div class="onoffswitch">
+                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox js-lights" id="myonoffswitch" tabindex="0">
+                <label class="onoffswitch-label" for="myonoffswitch">
+                  <span class="onoffswitch-inner"></span>
+                  <span class="onoffswitch-switch"></span>
+                </label>
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="controlsTdTitle">
+              Modus:
+            </td>
+            <td class="controlsTdValue">
+              <div class="onoffswitch2">
+                <input type="checkbox" name="onoffswitch2" class="onoffswitch2-checkbox js-auto" id="myonoffswitch2" tabindex="0" checked>
+                <label class="onoffswitch2-label" for="myonoffswitch2">
+                  <span class="onoffswitch2-inner"></span>
+                  <span class="onoffswitch2-switch"></span>
+                </label>
+              </div>
+            </td>
+          </tr>
+
+          <tr class="controlsRangeTr">
+            <td colspan="2" class="controlsTdRange controlsTdTitle">
+              <span class="controlsRangeLabel">Speed:</span>
+              <input class="controlsRange" type="range" min="0" max="100" value="0">
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <div class="overlay">
+    <div class="overlayInside">
+      <h1>De sensoren worden gekalibreerd</h1>
+      <h1 class="overlayOK unselectable js-overlay_ok">ok</h1>
+    </div>
+  </div>
+</body>
+
+</html>

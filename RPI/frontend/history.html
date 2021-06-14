@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/screen.css">
+    <script src="script/appHistory.js"></script>
+    <script src="script/drawGraph.js"></script>
+    <script src="script/datahandler.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <title>Geschiedenis</title>
+</head>
+
+<body>
+    <nav class="nav">
+        <div class="navWidth">
+            <h1 class="navH1">
+                Auto-Train
+            </h1>
+
+            <ul class="navUl">
+                <li class="navLi"><a class="NavLiA" href="index.html">Home</a></li>
+                <li class="navLi"><a class="NavLiA" href="history.html">Geschiedenis</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="mainHistory">
+        <section class="chartArea" data-chart__id="1">
+            <div class="keuzeDiv" data-chart__id="1">
+                <select class="keuze js-dropdown__dates" name="dates" data-chart__id="1">
+                    <option value="all">Alle data</option>
+                </select>
+
+                <select class="keuze js-dropdown__tijd" name="dates" data-chart__id="1">
+                    <option value="all">Met alle vertragingen</option>
+                </select>
+            </div>
+
+            <div class="chart" data-chart__id="1">
+
+            </div>
+        </section>
+    </main>
+</body>
+
+</html>
